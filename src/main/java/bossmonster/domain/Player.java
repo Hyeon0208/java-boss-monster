@@ -4,11 +4,15 @@ import bossmonster.constant.GameValue;
 
 public class Player {
     private final String name;
+    private final int initialHp;
+    private final int initialMp;
     private int hp;
     private int mp;
 
     private Player(String name, int hp, int mp) {
         this.name = name;
+        this.initialHp = hp;
+        this.initialMp = mp;
         this.hp = hp;
         this.mp = mp;
     }
@@ -21,7 +25,12 @@ public class Player {
         if (isLowMp(attackInfo.getConsumption())) {
             throw new IllegalArgumentException("[ERROR] mp가 부족합니다.");
         }
-        reduceMpBy(attackInfo.getConsumption());
+        if (attackInfo.getDamage() == 10) {
+            increaseMp(attackInfo.getConsumption());
+        }
+        if (attackInfo.getDamage() == 20) {
+            reduceMpBy(attackInfo.getConsumption());
+        }
         return attackInfo.getDamage();
     }
 
@@ -33,7 +42,37 @@ public class Player {
         mp -= consumption;
     }
 
+    private void increaseMp(int consumption) {
+        if ((mp + consumption) < initialMp) {
+            mp += consumption;
+        }
+    }
+
     private boolean isLowMp(int consumption) {
         return mp - consumption < 0;
+    }
+
+    public boolean die() {
+        return hp <= 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getInitialHp() {
+        return initialHp;
+    }
+
+    public int getInitialMp() {
+        return initialMp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMp() {
+        return mp;
     }
 }

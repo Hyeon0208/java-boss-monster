@@ -19,5 +19,9 @@ public class GameController {
         outputView.printNewLine();
 
         BossMonster bossMonster = new BossMonster(bossMonsterHp);
+
+        outputView.printPlayerNameInputMessage();
+        String playerName = inputHandler.receiveValidatedPlayerName();
+        outputView.printNewLine();
     }
 }

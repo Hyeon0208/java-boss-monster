@@ -19,6 +19,10 @@ public class InputHandler {
         return StringConvertor.convertToInt(bossMonsterHp);
     }
 
+    public String receiveValidatedPlayerName() {
+        return receiveValidatedInput(inputView::inputPlayerName);
+    }
+
     private <T> T receiveValidatedInput(Supplier<T> inputView) {
         while (true) {
             try {

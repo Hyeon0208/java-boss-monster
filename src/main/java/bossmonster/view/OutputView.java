@@ -6,6 +6,10 @@ public class OutputView {
         System.out.println("보스 몬스터의 HP를 입력해주세요.");
     }
 
+    public void printPlayerNameInputMessage() {
+        System.out.println("플레이어의 이름을 입력해주세요");
+    }
+
     public void printNewLine() {
         System.out.println();
     }

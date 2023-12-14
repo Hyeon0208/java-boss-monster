@@ -1,6 +1,7 @@
 package bossmonster.view;
 
 import bossmonster.view.validator.BossMonsterHpValidator;
+import bossmonster.view.validator.PlayerNameValidator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +12,12 @@ public class InputView {
         String bossMonsterHp = readLine();
         BossMonsterHpValidator.validate(bossMonsterHp);
         return bossMonsterHp;
+    }
+
+    public String inputPlayerName() {
+        String playerName = readLine();
+        PlayerNameValidator.validate(playerName);
+        return playerName;
     }
 
     private String readLine() {

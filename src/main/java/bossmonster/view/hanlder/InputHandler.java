@@ -29,6 +29,10 @@ public class InputHandler {
         return StringConvertor.convertStringArrayToIntArray(Separator.COMMA.split(status));
     }
 
+    public String receiveValidatedAttackCommand() {
+        return receiveValidatedInput(inputView::inputAttackCommand);
+    }
+
     private <T> T receiveValidatedInput(Supplier<T> inputView) {
         while (true) {
             try {

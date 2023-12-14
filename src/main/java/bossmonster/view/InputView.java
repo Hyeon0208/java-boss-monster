@@ -1,5 +1,6 @@
 package bossmonster.view;
 
+import bossmonster.view.validator.AttackCommandValidator;
 import bossmonster.view.validator.BossMonsterHpValidator;
 import bossmonster.view.validator.PlayerNameValidator;
 import bossmonster.view.validator.PlayerStatusValidator;
@@ -25,6 +26,12 @@ public class InputView {
         String status = readLine();
         PlayerStatusValidator.validate(status);
         return status;
+    }
+
+    public String inputAttackCommand() {
+        String command = readLine();
+        AttackCommandValidator.validate(command);
+        return command;
     }
 
     private String readLine() {

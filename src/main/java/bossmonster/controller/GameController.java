@@ -27,5 +27,9 @@ public class GameController {
         outputView.printPlayerStatus();
         int[] status = inputHandler.receiveValidatedPlayerStatus();
         outputView.printNewLine();
+
+        outputView.printAttackCommandInputMessage();
+        String attackCommand = inputHandler.receiveValidatedAttackCommand();
+        outputView.printNewLine();
     }
 }

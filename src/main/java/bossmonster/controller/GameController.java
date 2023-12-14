@@ -10,53 +10,18 @@ import bossmonster.view.hanlder.InputHandler;
 public class GameController {
     private final InputHandler inputHandler;
     private final OutputView outputView;
-    private int count = 0;
+    private int count;
 
     public GameController(InputHandler inputHandler, OutputView outputView) {
         this.inputHandler = inputHandler;
         this.outputView = outputView;
+        this.count = 0;
     }
 
     public void start() {
         BossMonster bossMonster = setUpBossMonster();
         Player player = setUpPlayer();
-
-        outputView.printRaidStartMessage();
-        outputView.printNewLine();
-
-        while (true) {
-            outputView.printBossMonsterStatus(bossMonster);
-            if (count == 0) {
-                outputView.printInitialBossMonsterAppearance();
-            }
-            if (count > 0) {
-                outputView.printHitBossMonsterAppearance();
-            }
-            outputView.printPlayerStatus(player);
-
-            outputView.printAttackCommandInputMessage();
-            String attackCommand = inputHandler.receiveValidatedAttackCommand();
-            outputView.printNewLine();
-            AttackInfo attackInfo = AttackInfo.from(attackCommand);
-
-            int playerAttackDamage = player.attack(attackInfo);
-            outputView.printPlayerAttackMessage(playerAttackDamage);
-            bossMonster.reduceHpBy(playerAttackDamage);
-            if (bossMonster.die()) {
-                outputView.printPlayerWinningMessage(player, count);
-                break;
-            }
-
-            int bossMonsterAttackDamage = bossMonster.attack(new RandomDamageGenerator());
-            outputView.printBossMonsterAttackMessage(bossMonsterAttackDamage);
-            outputView.printNewLine();
-            player.reduceHpBy(bossMonsterAttackDamage);
-            if (player.die()) {
-                outputView.printBossMonsterWinningMessage(bossMonster, player);
-                break;
-            }
-            count++;
-        }
+        raid(player, bossMonster);
     }
 
     private BossMonster setUpBossMonster() {
@@ -74,5 +39,50 @@ public class GameController {
         int[] status = inputHandler.receiveValidatedPlayerStatus();
         outputView.printNewLine();
         return Player.of(playerName, status);
+    }
+
+
+    private void raid(Player player, BossMonster bossMonster) {
+        outputView.printRaidStartMessage();
+        while (true) {
+            showRaidProgressStage(player, bossMonster);
+            attackOfPlayer(player, bossMonster);
+            if (bossMonster.die()) {
+                outputView.printPlayerWinningMessage(player, count);
+                break;
+            }
+            attackOfBossMonster(bossMonster, player);
+            if (player.die()) {
+                outputView.printBossMonsterWinningMessage(bossMonster, player);
+                break;
+            }
+        }
+    }
+
+    private void showRaidProgressStage(Player player, BossMonster bossMonster) {
+        outputView.printBossMonsterStatus(bossMonster);
+        if (count == 0) {
+            outputView.printInitialBossMonsterAppearance();
+        }
+        if (count > 0) {
+            outputView.printHitBossMonsterAppearance();
+        }
+        outputView.printPlayerStatus(player);
+        count++;
+    }
+
+    private void attackOfPlayer(Player player, BossMonster bossMonster) {
+        outputView.printAttackCommandInputMessage();
+        String attackCommand = inputHandler.receiveValidatedAttackCommand();
+        outputView.printNewLine();
+        int playerAttackDamage = player.attack(AttackInfo.from(attackCommand));
+        outputView.printPlayerAttackMessage(playerAttackDamage);
+        bossMonster.reduceHpBy(playerAttackDamage);
+    }
+
+    private void attackOfBossMonster(BossMonster bossMonster, Player player) {
+        int bossMonsterAttackDamage = bossMonster.attack(new RandomDamageGenerator());
+        outputView.printBossMonsterAttackMessage(bossMonsterAttackDamage);
+        player.reduceHpBy(bossMonsterAttackDamage);
     }
 }

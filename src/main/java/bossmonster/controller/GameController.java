@@ -23,5 +23,9 @@ public class GameController {
         outputView.printPlayerNameInputMessage();
         String playerName = inputHandler.receiveValidatedPlayerName();
         outputView.printNewLine();
+
+        outputView.printPlayerStatus();
+        int[] status = inputHandler.receiveValidatedPlayerStatus();
+        outputView.printNewLine();
     }
 }

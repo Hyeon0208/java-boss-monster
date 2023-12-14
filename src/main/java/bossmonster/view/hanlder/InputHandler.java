@@ -1,5 +1,6 @@
 package bossmonster.view.hanlder;
 
+import bossmonster.util.Separator;
 import bossmonster.util.StringConvertor;
 import bossmonster.view.ErrorView;
 import bossmonster.view.InputView;
@@ -21,6 +22,11 @@ public class InputHandler {
 
     public String receiveValidatedPlayerName() {
         return receiveValidatedInput(inputView::inputPlayerName);
+    }
+
+    public int[] receiveValidatedPlayerStatus() {
+        String status = receiveValidatedInput(inputView::inputPlayerStatus);
+        return StringConvertor.convertStringArrayToIntArray(Separator.COMMA.split(status));
     }
 
     private <T> T receiveValidatedInput(Supplier<T> inputView) {

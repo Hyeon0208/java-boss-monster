@@ -10,6 +10,10 @@ public class OutputView {
         System.out.println("플레이어의 이름을 입력해주세요");
     }
 
+    public void printPlayerStatus() {
+        System.out.println("플레이어의 HP와 MP를 입력해주세요.(,로 구분)");
+    }
+
     public void printNewLine() {
         System.out.println();
     }

@@ -1,5 +1,6 @@
 package bossmonster.view;
 
+import bossmonster.constant.GameValue;
 import bossmonster.domain.BossMonster;
 import bossmonster.domain.Player;
 
@@ -19,6 +20,7 @@ public class OutputView {
 
     public void printRaidStartMessage() {
         System.out.println("보스 레이드를 시작합니다!");
+        printNewLine();
     }
 
     public void printBossMonsterStatus(BossMonster bossMonster) {
@@ -64,16 +66,17 @@ public class OutputView {
     }
 
     public void printPlayerAttackMessage(int damge) {
-        if (damge == 10) {
+        if (damge == GameValue.PHYSICAL_DAMAGE) {
             System.out.printf("물리 공격을 했습니다. (입힌 데미지: %d)\n", damge);
         }
-        if (damge == 20) {
+        if (damge == GameValue.MAGIC_DAMAGE) {
             System.out.printf("마법 공격을 했습니다. (입힌 데미지: %d)\n", damge);
         }
     }
 
     public void printBossMonsterAttackMessage(int damage) {
         System.out.printf("보스가 공격 했습니다. (입힌 데미지: %d)\n", damage);
+        printNewLine();
     }
 
     public void printPlayerWinningMessage(Player player, int count) {

@@ -25,10 +25,10 @@ public class Player {
         if (isLowMp(attackInfo.getConsumption())) {
             throw new IllegalArgumentException("[ERROR] mp가 부족합니다.");
         }
-        if (attackInfo.getDamage() == 10) {
+        if (attackInfo.isPhysicalAttack()) {
             increaseMp(attackInfo.getConsumption());
         }
-        if (attackInfo.getDamage() == 20) {
+        if (attackInfo.isMagicAttack()) {
             reduceMpBy(attackInfo.getConsumption());
         }
         return attackInfo.getDamage();

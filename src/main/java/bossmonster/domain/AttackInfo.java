@@ -3,6 +3,8 @@ package bossmonster.domain;
 import bossmonster.constant.GameValue;
 
 public class AttackInfo {
+    private static final int PHYSICAL_ATTACK_MP_CONSUMPTION = 10;
+    private static final int MAGIC_ATTACK_MP_CONSUMPTION = 30;
     private final int damage;
     private final int consumption;
 
@@ -15,14 +17,22 @@ public class AttackInfo {
         int damage = 0;
         int consumption = 0;
         if (command.equals(GameValue.PHYSICAL_ATTACK)) {
-            consumption = 10;
-            damage = 10;
+            consumption = PHYSICAL_ATTACK_MP_CONSUMPTION;
+            damage = GameValue.PHYSICAL_DAMAGE;
         }
         if (command.equals(GameValue.MAGIC_ATTACK)) {
-            consumption = 30;
-            damage = 20;
+            consumption = MAGIC_ATTACK_MP_CONSUMPTION;
+            damage = GameValue.MAGIC_DAMAGE;
         }
         return new AttackInfo(damage, consumption);
+    }
+
+    public boolean isPhysicalAttack() {
+        return damage == GameValue.PHYSICAL_DAMAGE;
+    }
+
+    public boolean isMagicAttack() {
+        return damage == GameValue.MAGIC_DAMAGE;
     }
 
     public int getDamage() {

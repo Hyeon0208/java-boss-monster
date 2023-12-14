@@ -1,5 +1,6 @@
 package bossmonster.controller;
 
+import bossmonster.domain.AttackInfo;
 import bossmonster.domain.BossMonster;
 import bossmonster.view.OutputView;
 import bossmonster.view.hanlder.InputHandler;
@@ -31,5 +32,8 @@ public class GameController {
         outputView.printAttackCommandInputMessage();
         String attackCommand = inputHandler.receiveValidatedAttackCommand();
         outputView.printNewLine();
+
+        AttackInfo attackInfo = AttackInfo.from(attackCommand);
+
     }
 }

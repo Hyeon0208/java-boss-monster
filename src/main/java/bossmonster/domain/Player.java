@@ -35,6 +35,10 @@ public class Player {
     }
 
     public void reduceHpBy(int damage) {
+        if (hp - damage < 0) {
+            hp = 0;
+            return;
+        }
         hp -= damage;
     }
 
@@ -43,7 +47,7 @@ public class Player {
     }
 
     private void increaseMp(int consumption) {
-        if ((mp + consumption) < initialMp) {
+        if ((mp + consumption) <= initialMp) {
             mp += consumption;
         }
     }

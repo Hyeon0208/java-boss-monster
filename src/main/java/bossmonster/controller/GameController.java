@@ -1,5 +1,6 @@
 package bossmonster.controller;
 
+import bossmonster.domain.BossMonster;
 import bossmonster.view.OutputView;
 import bossmonster.view.hanlder.InputHandler;
 
@@ -16,5 +17,7 @@ public class GameController {
         outputView.printBossMonsterHpInputMessage();
         int bossMonsterHp = inputHandler.receiveValidatedBossMonsterHp();
         outputView.printNewLine();
+
+        BossMonster bossMonster = new BossMonster(bossMonsterHp);
     }
 }

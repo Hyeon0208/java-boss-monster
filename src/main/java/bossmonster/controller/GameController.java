@@ -72,12 +72,17 @@ public class GameController {
     }
 
     private void attackOfPlayer(Player player, BossMonster bossMonster) {
-        outputView.printAttackCommandInputMessage();
-        String attackCommand = inputHandler.receiveValidatedAttackCommand();
-        outputView.printNewLine();
-        int playerAttackDamage = player.attack(AttackInfo.from(attackCommand));
-        outputView.printPlayerAttackMessage(playerAttackDamage);
-        bossMonster.reduceHpBy(playerAttackDamage);
+        try {
+            outputView.printAttackCommandInputMessage();
+            String attackCommand = inputHandler.receiveValidatedAttackCommand();
+            outputView.printNewLine();
+            int playerAttackDamage = player.attack(AttackInfo.from(attackCommand));
+            outputView.printPlayerAttackMessage(playerAttackDamage);
+            bossMonster.reduceHpBy(playerAttackDamage);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+            attackOfPlayer(player, bossMonster);
+        }
     }
 
     private void attackOfBossMonster(BossMonster bossMonster, Player player) {

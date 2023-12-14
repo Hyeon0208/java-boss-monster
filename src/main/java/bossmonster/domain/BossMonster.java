@@ -1,10 +1,16 @@
 package bossmonster.domain;
 
 public class BossMonster {
+    private final int initialHp;
     private int hp;
 
-    public BossMonster(int hp) {
+    private BossMonster(int initialHp, int hp) {
+        this.initialHp = initialHp;
         this.hp = hp;
+    }
+
+    public static BossMonster from(int hp) {
+        return new BossMonster(hp, hp);
     }
 
     public int attack(NumberGenerator numberGenerator) {
@@ -17,5 +23,13 @@ public class BossMonster {
 
     public boolean die() {
         return hp <= 0;
+    }
+
+    public int getInitialHp() {
+        return initialHp;
+    }
+
+    public int getHp() {
+        return hp;
     }
 }

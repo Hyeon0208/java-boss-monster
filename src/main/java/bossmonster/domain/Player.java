@@ -22,13 +22,13 @@ public class Player {
     }
 
     public int attack(AttackInfo attackInfo) {
-        if (isLowMp(attackInfo.getConsumption())) {
-            throw new IllegalArgumentException("[ERROR] mp가 부족합니다.");
-        }
         if (attackInfo.isPhysicalAttack()) {
             increaseMp(attackInfo.getConsumption());
         }
         if (attackInfo.isMagicAttack()) {
+            if (isLowMp(attackInfo.getConsumption())) {
+                throw new IllegalArgumentException("[ERROR] mp가 부족합니다.");
+            }
             reduceMpBy(attackInfo.getConsumption());
         }
         return attackInfo.getDamage();
